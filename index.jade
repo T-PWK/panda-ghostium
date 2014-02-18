@@ -1,5 +1,5 @@
 mixin post(post)
-    article.post-item(itemscope,itemtype="http://schema.org/BlogPosting",role="article",class=$postClass(post))
+    article.post-item(itemscope, itemtype="http://schema.org/BlogPosting", role="article", class=$postClass(post))
 
         header.post-item-header
             h2.post-item-title(itemprop="name"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title

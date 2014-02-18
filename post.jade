@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    section.wrapper.wrapper-post
+        .wrapper-container
+            article.post(itemscope itemtype="http://schema.org/BlogPosting", role="article", class=postClass)
+                section.post-container
+                    header.post-header
+                        ul.post-meta-list
+
+                            //- Publication date
+                            li.post-meta-item
+                                time(datetime=$date(post), itemprop="datePublished")= $date(post, {timeago:true})
+
+                            //- Labels
+                            if post.labels
+                                li.post-meta-item
+                                    each label, idx in post.labels
+                                        span(itemprop= idx === 0 ? 'articleSection' : 'keywords')= label
+
+                            li.post-meta-item: a(href="#disqus_thread", data-disqus-identifier="{{id}}")
+
+                        h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
+                        // h2 itemprop="about" class="post-subtitle">post.title</h2

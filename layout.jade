@@ -38,9 +38,27 @@ html(lang="en")
         //- {{ghost_head}}
 
     body(class=bodyClass)
-        //- {{> drawer this}}
-
+        button#drawer-button.drawer-button(data-action="open-drawer"): i.fa.fa-bars
+        nav.drawer(tabindex="-1")
+            .drawer-container
+                // .drawer-search(role="search")
+                ul.drawer-list(role="navigation")
+                    li.drawer-list-item: a(href="/", data-pjax)
+                        i.fa.fa-home
+                        | Home
+                    li.drawer-list-item: a(href="#{url}/rss")
+                        i.fa.fa-rss
+                        | Subscribe to Feed
+                    li.drawer-list-divider
+                    li.drawer-list-item.drawer-list-title Follow me
+                    li.drawer-list-item: a(href="http://twitter.com", target="_blank")
+                        i.fa.fa-twitter
+                        | Twitter
+                    li.drawer-list-item: a(href="http://github.com", target="_blank")
+                        i.fa.fa-github
+                        | Github
         .drawer-overlay
+
         main#container.container(role="main")
             .surface
                 .surface-container
