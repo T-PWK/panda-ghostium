@@ -9,13 +9,19 @@ mixin post(post)
 
         footer.post-item-footer
             ul.post-item-meta-list
+
+                //- Publication date
                 li.post-item-meta-item
-                    time(datetime=$date(post), itemprop="datePublished")= $date(post, {timeago:true})
+                    time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
+                
+                //- Keywords
                 if post.labels
                     li.post-item-meta-item
                         each label, idx in post.labels
                             span(itemprop= idx === 0 ? 'articleSection' : 'keywords')= label
                             | #{(idx === post.labels.length - 1) ? '' : ', '}
+                
+                //- Number of comments
                 li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax, data-disqus-identifier="{{id}}")
 
 extends layout
@@ -31,7 +37,7 @@ block content
 
     section.wrapper(tabindex="0")
         .wrapper-container
-            //- {{> custom/featured this}}
+            include featured
 
             section.post-list
                 each post in posts
@@ -40,10 +46,14 @@ block content
             if pagination
                 nav.post-list-pagination(role="pagination")
                     if pagination.newer
-                        a.post-list-pagination-item.post-list-pagination-item-prev(href= $pageUrl(true), data-pjax) &larr; Newer
+                        a.post-list-pagination-item.post-list-pagination-item-prev(href= $pageUrl(true), data-pjax) 
+                            i.fa.fa-angle-double-left 
+                            |  Newer
                     span.post-list-pagination-item.post-list-pagination-item-current Page #{pagination.page} of #{pagination.pages}
                     if pagination.older
-                        a.post-list-pagination-item.post-list-pagination-item-next(href= $pageUrl(false), data-pjax) Older &rarr;
+                        a.post-list-pagination-item.post-list-pagination-item-next(href= $pageUrl(false), data-pjax) 
+                            | Older 
+                            i.fa.fa-angle-double-right
 
             footer.footer(role="contentinfo")
                 p: small © #{now.year()}. All Rights Reserved.

@@ -4,21 +4,62 @@ block content
     section.wrapper.wrapper-post
         .wrapper-container
             article.post(itemscope itemtype="http://schema.org/BlogPosting", role="article", class=postClass)
+                
                 section.post-container
                     header.post-header
                         ul.post-meta-list
 
                             //- Publication date
                             li.post-meta-item
-                                time(datetime=$date(post), itemprop="datePublished")= $date(post, {timeago:true})
+                                time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
 
                             //- Labels
                             if post.labels
                                 li.post-meta-item
                                     each label, idx in post.labels
-                                        span(itemprop= idx === 0 ? 'articleSection' : 'keywords')= label
+                                        span(itemprop= idx === 0 ? 'articleSection' : 'keywords')
+                                            if idx > 0
+                                                | &nbsp;
+                                            = label 
 
                             li.post-meta-item: a(href="#disqus_thread", data-disqus-identifier="{{id}}")
 
                         h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
                         // h2 itemprop="about" class="post-subtitle">post.title</h2
+
+                    aside.post-side
+                        .post-author
+                            if author.image
+                                a.post-author-avatar(href=author.website): img(src=author.image, alt=author.name)
+                            .post-author-info
+                                a.post-author-name(href=author.website)= author.name
+                                p.post-author-bio= author.bio
+
+                    .post-body(itemprop="articleBody")!= post.content
+
+                    footer.post-footer
+                        .post-author(itemprop="author", itemscope, itemtype="http://schema.org/Person")
+                            
+                            if author.image
+                                a.post-author-avatar(href=author.website): img(itemprop="image", src=author.image, alt=author.name)
+                            
+                            .post-author-info
+                                h4.post-footer-heading Written by
+                                a.post-author-name(itemprop="url",href=author.website): span(itemprop="name")= author.name
+                                p.post-author-bio(itemprop="description")= author.bio
+
+                                if author.location
+                                    p.post-author-location= author.location
+                                if author.website
+                                    p.post-author-website: a(href=author.website, rel="nofollow")= author.website
+                                p.post-info
+                                    b.post-info-title Published on
+                                    time.post-date= $date(post, 'MMMM DD, YYYY')
+
+                        .post-social
+                            h4.post-footer-heading Spread the word
+                            a(href="#", data-action="share-twitter"): i.fa.fa-fw.fa-lg.fa-twitter
+                            a(href="#", data-action="share-facebook"): i.fa.fa-fw.fa-lg.fa-facebook
+                            a(href="#", data-action="share-gplus"): i.fa.fa-fw.fa-lg.fa-google-plus
+
+
