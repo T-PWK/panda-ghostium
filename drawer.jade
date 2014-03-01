@@ -9,7 +9,10 @@ nav.drawer(tabindex="-1")
             li.drawer-list-item: a(href="#{url}/rss")
                 i.fa.fa-rss
                 | Subscribe to Feed
+
             li.drawer-list-divider
+            
+            //- Follow me section
             li.drawer-list-item.drawer-list-title Follow me
             li.drawer-list-item: a(href="http://twitter.com", target="_blank")
                 i.fa.fa-twitter
@@ -17,4 +20,16 @@ nav.drawer(tabindex="-1")
             li.drawer-list-item: a(href="http://github.com", target="_blank")
                 i.fa.fa-github
                 | Github
+            li.drawer-list-item: a(href="http://stackoverflow.com", target="_blank")
+                i.fa.fa-stack-overflow
+                | Stack Overflow
+
+            li.drawer-list-divider
+
+            //- Archives
+            li.drawer-list-item.drawer-list-title Archive
+            each archive in archives
+                li.drawer-list-item: a(href=$date(archive.date, '/YYYY/MM'), data-pjax)
+                    i.fa.fa-archive
+                    = archive.date.format('MMMM YYYY')
 .drawer-overlay

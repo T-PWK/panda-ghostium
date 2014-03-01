@@ -14,15 +14,14 @@ block content
                                 time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
 
                             //- Labels
-                            if post.labels
+                            if post.labels && post.labels.length
                                 li.post-meta-item
                                     if post.section
                                         span(itemprop='articleSection') #{post.section}&nbsp;
+                                    - var lastPost = post.labels.length - 1
                                     each label, idx in post.labels
-                                        span(itemprop='keywords')
-                                            if idx > 0
-                                                | &nbsp;
-                                            = label 
+                                        span(itemprop='keywords') #{label}
+                                        | !{idx < lastPost ? ', ' : null}
 
                             li.post-meta-item: a(href="#disqus_thread", data-disqus-identifier="{{id}}")
 

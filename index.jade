@@ -8,7 +8,6 @@ mixin post(post)
             p #{post.teaser} &hellip;
 
         footer.post-item-footer
-            meta(content=post.author.website, itemprop="url")
             ul.post-item-meta-list
 
                 //- Publication date & author
@@ -23,11 +22,11 @@ mixin post(post)
                             span(itemprop="name")= post.author.name
                 
                 //- Keywords
-                if post.labels
+                if post.labels && post.labels.length
                     li.post-item-meta-item
                         each label, idx in post.labels
-                            span(itemprop= idx === 0 ? 'articleSection' : 'keywords')= label
-                            | #{(idx === post.labels.length - 1) ? '' : ', '}
+                            span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)= label
+                            | #{(idx === post.labels.length - 1) ? null : ', '}
                 
                 //- Number of comments
                 li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax, data-disqus-identifier="{{id}}")
@@ -47,11 +46,34 @@ block content
         .wrapper-container
             include featured
 
+            if label
+                p.text-center: small
+                    | Showing posts with label 
+                    strong #{label}. 
+                    a(href=url, data-pjax) Show all posts
+                hr
+            if day
+                p.text-center: small
+                    | Showing posts from 
+                    strong #{date.format('Do MMMM, YYYY')}. 
+                    a(href=url, data-pjax) Show all posts
+                hr
+            else if month
+                p.text-center: small
+                    | Showing posts from 
+                    strong #{date.format('MMMM, YYYY')}. 
+                    a(href=url, data-pjax) Show all posts
+            else if year
+                p.text-center: small
+                    | Showing posts from 
+                    strong #{year}. 
+                    a(href=url, data-pjax) Show all posts
+
             section.post-list
                 each post in posts
                     mixin post(post)
 
-            if pagination
+            if pagination && pagination.pages
                 nav.post-list-pagination(role="pagination")
                     if pagination.newer
                         a.post-list-pagination-item.post-list-pagination-item-prev(href= $pageUrl(true), data-pjax) 
