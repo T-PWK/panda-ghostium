@@ -8,11 +8,19 @@ mixin post(post)
             p #{post.teaser} &hellip;
 
         footer.post-item-footer
+            meta(content=post.author.website, itemprop="url")
             ul.post-item-meta-list
 
-                //- Publication date
+                //- Publication date & author
                 li.post-item-meta-item
                     time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
+                    |  by  
+                    span(itemprop="author", itemscope, itemtype="http://schema.org/Person")
+                        if post.author.website
+                            meta(content=post.author.website, itemprop="url")
+                            a(href=post.author.website, rel="author", itemprop="name")= post.author.name
+                        else
+                            span(itemprop="name")= post.author.name
                 
                 //- Keywords
                 if post.labels
@@ -32,8 +40,8 @@ block content
         .cover-container
             if logo
                 a.cover-logo(href=url, data-pjax): img(src=logo, alt="Blog Logo")
-            h1.cover-title= title
-            p.cover-description= description
+            h1.cover-title!= title
+            p.cover-description!= description
 
     section.wrapper(tabindex="0")
         .wrapper-container
@@ -55,12 +63,4 @@ block content
                             | Older 
                             i.fa.fa-angle-double-right
 
-            footer.footer(role="contentinfo")
-                p: small © #{now.year()}. All Rights Reserved.
-                p: small 
-                    a(href="http://ghostium.oswaldoacauan.com/", target="_blank") Ghostium Theme
-                    |  by 
-                    a(href="http://twitter.com/oswaldoacauan", target="_blank") @oswaldoacauan
-                p: small
-                    | Proudly published with 
-                    a(href="https://github.com/T-PWK/panda") Panda
+            include footer

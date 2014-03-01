@@ -16,8 +16,10 @@ block content
                             //- Labels
                             if post.labels
                                 li.post-meta-item
+                                    if post.section
+                                        span(itemprop='articleSection') #{post.section}&nbsp;
                                     each label, idx in post.labels
-                                        span(itemprop= idx === 0 ? 'articleSection' : 'keywords')
+                                        span(itemprop='keywords')
                                             if idx > 0
                                                 | &nbsp;
                                             = label 
@@ -25,7 +27,7 @@ block content
                             li.post-meta-item: a(href="#disqus_thread", data-disqus-identifier="{{id}}")
 
                         h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
-                        // h2 itemprop="about" class="post-subtitle">post.title</h2
+                        //- h2 itemprop="about" class="post-subtitle">post.title</h2
 
                     aside.post-side
                         .post-author
@@ -45,13 +47,13 @@ block content
                             
                             .post-author-info
                                 h4.post-footer-heading Written by
-                                a.post-author-name(itemprop="url",href=author.website): span(itemprop="name")= author.name
+                                a.post-author-name(href=author.website): span(itemprop="name")= author.name
                                 p.post-author-bio(itemprop="description")= author.bio
 
                                 if author.location
                                     p.post-author-location= author.location
                                 if author.website
-                                    p.post-author-website: a(href=author.website, rel="nofollow")= author.website
+                                    p.post-author-website: a(href=author.website, rel="nofollow", itemprop="url")= author.website
                                 p.post-info
                                     b.post-info-title Published on
                                     time.post-date= $date(post, 'MMMM DD, YYYY')
@@ -62,4 +64,4 @@ block content
                             a(href="#", data-action="share-facebook"): i.fa.fa-fw.fa-lg.fa-facebook
                             a(href="#", data-action="share-gplus"): i.fa.fa-fw.fa-lg.fa-google-plus
 
-
+            include footer
