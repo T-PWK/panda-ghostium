@@ -5,7 +5,7 @@ mixin post(post)
             h2.post-item-title(itemprop="name"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
 
         section.post-item-excerpt(itemprop="description")
-            p #{post.teaser} &hellip;
+            p !{post.teaser} &hellip;
 
         footer.post-item-footer
             ul.post-item-meta-list
