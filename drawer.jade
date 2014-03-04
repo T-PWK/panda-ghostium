@@ -24,12 +24,13 @@ nav.drawer(tabindex="-1")
                 i.fa.fa-stack-overflow
                 | Stack Overflow
 
-            li.drawer-list-divider
-
             //- Archives
-            li.drawer-list-item.drawer-list-title Archive
-            each archive in archives
-                li.drawer-list-item: a(href=$date(archive.date, '/YYYY/MM'), data-pjax)
-                    i.fa.fa-archive
-                    = archive.date.format('MMMM YYYY')
+            if archives && archives.length
+                li.drawer-list-divider
+                li.drawer-list-item.drawer-list-title Archive
+                each archive in archives
+                    li.drawer-list-item: a(href=$date(archive.date, '/YYYY/MM'), data-pjax)
+                        i.fa.fa-archive
+                        = $date(archive.date, 'MMMM YYYY')
+
 .drawer-overlay
