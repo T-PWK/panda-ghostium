@@ -63,4 +63,19 @@ block content
                             a(href="#", data-action="share-facebook"): i.fa.fa-fw.fa-lg.fa-facebook
                             a(href="#", data-action="share-gplus"): i.fa.fa-fw.fa-lg.fa-google-plus
 
+                section.post-comments(itemprop="comment")
+                    #disqus_thread
+
             include footer
+
+
+block prepend script
+    if custom.disqus_shortname
+        | if(typeof DISQUS !== 'object') {
+        |   (function () {
+        |   var s = document.createElement('script'); s.async = true;
+        |   s.type = 'text/javascript';
+        |   s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        |   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        |   }());
+        | }
