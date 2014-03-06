@@ -12,24 +12,44 @@ mixin post(post)
 
                 //- Publication date & author
                 li.post-item-meta-item
+                    | Posted 
                     time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
                     |  by  
                     span(itemprop="author", itemscope, itemtype="http://schema.org/Person")
                         if post.author.website
                             meta(content=post.author.website, itemprop="url")
-                            a(href=post.author.website, rel="author", itemprop="name")= post.author.name
+                            strong: a(href=post.author.website, rel="author", itemprop="name")= post.author.name
                         else
                             span(itemprop="name")= post.author.name
                 
                 //- Keywords
-                if post.labels && post.labels.length
-                    li.post-item-meta-item
-                        each label, idx in post.labels
-                            span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)= label
-                            | #{(idx === post.labels.length - 1) ? null : ', '}
+                //- if post.labels && post.labels.length
+                //-     li.post-item-meta-item
+                //-         each label, idx in post.labels
+                //-             span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)= label
+                //-             | #{(idx === post.labels.length - 1) ? null : ', '}
                 
                 //- Number of comments
-                li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax, data-disqus-identifier="{{id}}")
+                li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax) 0 Comments
+
+            if post.labels && post.labels.length
+                ul.post-item-meta-list
+                    li.post-item-meta-item
+                        each label, idx in post.labels
+                            span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)
+                                i.fa.fa-tags
+                                | &nbsp;#{label}
+                            | #{(idx === post.labels.length - 1) ? null : ', '}
+
+mixin info(iconClass, text, info)
+    p.text-center: small
+        | #{text} 
+        i.fa(class=iconClass)
+        |  
+        strong= info
+        | . 
+        a(href=url, data-pjax) Show all posts
+    hr
 
 extends layout
 
@@ -47,27 +67,13 @@ block content
             include featured
 
             if label
-                p.text-center: small
-                    | Showing posts with label 
-                    strong #{label}. 
-                    a(href=url, data-pjax) Show all posts
-                hr
+                mixin info('fa-tags', 'Showing posts with label', label)
             if day
-                p.text-center: small
-                    | Showing posts from 
-                    strong #{date.format('Do MMMM, YYYY')}. 
-                    a(href=url, data-pjax) Show all posts
-                hr
+                mixin info('fa-calendar', 'Showing posts from', date.format('Do MMMM, YYYY'))
             else if month
-                p.text-center: small
-                    | Showing posts from 
-                    strong #{date.format('MMMM, YYYY')}. 
-                    a(href=url, data-pjax) Show all posts
+                mixin info('fa-calendar', 'Showing posts from', date.format('MMMM, YYYY'))
             else if year
-                p.text-center: small
-                    | Showing posts from 
-                    strong #{year}. 
-                    a(href=url, data-pjax) Show all posts
+                mixin info('fa-calendar', 'Showing posts from', year)
 
             section.post-list
                 each post in posts
