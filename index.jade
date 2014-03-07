@@ -28,10 +28,11 @@ mixin post(post)
             if post.labels && post.labels.length
                 ul.post-item-meta-list
                     li.post-item-meta-item
+                        i.fa.fa-tags 
+                        |  Labels: 
                         each label, idx in post.labels
-                            span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)
-                                i.fa.fa-tags
-                                | &nbsp;#{label}
+                            span: a(href=$labelUrl(label), data-pjax) 
+                                strong(itemprop='keywords') #{label}
                             | #{(idx === post.labels.length - 1) ? null : ', '}
 
 mixin info(iconClass, text, info)

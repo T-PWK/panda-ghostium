@@ -25,11 +25,11 @@ block content
                     if post.labels && post.labels.length
                         ul.post-item-meta-list
                             li.post-item-meta-item
-                                | Labels: 
+                                i.fa.fa-tags
+                                |  Labels: 
                                 each label, idx in post.labels
                                     span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)
-                                        i.fa.fa-tags
-                                        | &nbsp;#{label}
+                                        strong #{label}
                                     | #{(idx === post.labels.length - 1) ? null : ', '}
                         p
 
@@ -62,14 +62,14 @@ block content
                     #disqus_thread
 
             include footer
+
+block prepend bottomScript
     if custom.disqus_shortname
-        script(type="text/javascript")
-            | var disqus_shortname = 'example';
-            | if(typeof DISQUS !== 'object') {
-            |   (function () {
-            |   var s = document.createElement('script'); s.async = true;
-            |   s.type = 'text/javascript';
-            |   s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            |   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-            |   }());
-            | }
+        | if(typeof DISQUS !== 'object') {
+        |   (function () {
+        |   var s = document.createElement('script'); s.async = true;
+        |   s.type = 'text/javascript';
+        |   s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        |   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        |   }());
+        | }
