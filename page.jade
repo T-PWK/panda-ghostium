@@ -8,37 +8,12 @@ block content
                 section.post-container
                     header.post-header
                         h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
-                        //- h2 itemprop="about" class="post-subtitle">post.title
-
-                    aside.post-side
-                        .post-author
-                            if author.image
-                                a.post-author-avatar(href=author.website): img(src=author.image, alt=author.name)
-                            .post-author-info
-                                a.post-author-name(href=author.website)= author.name
-                                p.post-author-bio= author.bio
 
                     .post-body(itemprop="articleBody")!= post.content
 
                     footer.post-footer
-                        .post-author(itemprop="author", itemscope, itemtype="http://schema.org/Person")
-                            
-                            if author.image
-                                a.post-author-avatar(href=author.website): img(itemprop="image", src=author.image, alt=author.name)
-                            
-                            .post-author-info
-                                h4.post-footer-heading Written by
-                                a.post-author-name(itemprop="url",href=author.website): span(itemprop="name")= author.name
-                                p.post-author-bio(itemprop="description")= author.bio
-
-                                if author.location
-                                    p.post-author-location= author.location
-                                if author.website
-                                    p.post-author-website: a(href=author.website, rel="nofollow")= author.website
-                                p.post-info
-                                    b.post-info-title Published on
-                                    time.post-date= $date(post, 'MMMM DD, YYYY')
-
+                        .post-author
+                            .post-author-info &nbsp;
                         .post-social
                             h4.post-footer-heading Spread the word
                             a(href="#", data-action="share-twitter"): i.fa.fa-fw.fa-lg.fa-twitter
