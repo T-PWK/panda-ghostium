@@ -21,14 +21,7 @@ mixin post(post)
                             strong: a(href=post.author.website, rel="author", itemprop="name")= post.author.name
                         else
                             span(itemprop="name")= post.author.name
-                
-                //- Keywords
-                //- if post.labels && post.labels.length
-                //-     li.post-item-meta-item
-                //-         each label, idx in post.labels
-                //-             span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)= label
-                //-             | #{(idx === post.labels.length - 1) ? null : ', '}
-                
+
                 //- Number of comments
                 li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax) 0 Comments
 
@@ -68,7 +61,7 @@ block content
 
             if label
                 mixin info('fa-tags', 'Showing posts with label', label)
-            if day
+            else if day
                 mixin info('fa-calendar', 'Showing posts from', date.format('Do MMMM, YYYY'))
             else if month
                 mixin info('fa-calendar', 'Showing posts from', date.format('MMMM, YYYY'))

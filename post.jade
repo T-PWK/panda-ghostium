@@ -14,19 +14,11 @@ block content
                                 | Published 
                                 time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
 
-                            //- Labels
-                            //- if post.labels && post.labels.length
-                            //-     li.post-meta-item
-                            //-         if post.section
-                            //-             span(itemprop='articleSection') #{post.section}&nbsp;
-                            //-         - var lastPost = post.labels.length - 1
-                            //-         each label, idx in post.labels
-                            //-             span(itemprop='keywords') #{label}
-                            //-             | !{idx < lastPost ? ', ' : null}
+                            // Disqus comments count
+                            li.post-meta-item: a(href="#disqus_thread")
 
-                            li.post-meta-item: a(href="#disqus_thread", data-disqus-identifier="{{id}}")
-
-                        h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
+                        h1.post-title(itemprop="name headline")
+                            a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
 
                     .post-body(itemprop="articleBody")!= post.content
 
