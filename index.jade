@@ -23,7 +23,7 @@ mixin post(post)
                             span(itemprop="name")= post.author.name
 
                 //- Number of comments
-                li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax) 0 Comments
+                li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax) #{post.commentsCount} Comments
 
             if post.labels && post.labels.length
                 ul.post-item-meta-list

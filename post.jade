@@ -15,7 +15,7 @@ block content
                                 time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
 
                             // Disqus comments count
-                            li.post-meta-item: a(href="#disqus_thread")
+                            li.post-meta-item: a(href="#disqus_thread") #{post.commentsCount} Comments
 
                         h1.post-title(itemprop="name headline")
                             a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
