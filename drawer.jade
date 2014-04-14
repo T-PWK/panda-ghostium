@@ -18,14 +18,21 @@ nav.drawer(tabindex="-1")
                 li.drawer-list-item: a(href=custom.twitter, target="_blank")
                     i.fa.fa-twitter
                     | Twitter
+
             if custom.github
                 li.drawer-list-item: a(href=custom.github, target="_blank")
                     i.fa.fa-github
                     | Github
+
             if custom.stackoverflow
                 li.drawer-list-item: a(href=custom.stackoverflow, target="_blank")
                     i.fa.fa-stack-overflow
                     | Stack Overflow
+
+            if custom.googleplus
+                li.drawer-list-item: a(href=custom.googleplus, target="_blank")
+                    i.fa.fa-google-plus
+                    | Google+
 
             //- Archives
             if archives && archives.length
