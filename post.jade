@@ -4,24 +4,31 @@ block content
     section.wrapper.wrapper-post
         .wrapper-container
             article.post(itemscope itemtype="http://schema.org/BlogPosting", role="article", class=postClass)
-                
+                //- ### Post header banner ###
+                include banners/post-header
+
                 section.post-container
+
+                    //- ### Post header ###
                     header.post-header
                         ul.post-meta-list
 
-                            //- Publication date
+                            //- ### Post publication date ###
                             li.post-meta-item
                                 | Published 
                                 time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
 
-                            // Disqus comments count
+                            //- ### Post comments ###
                             li.post-meta-item: a(href="#disqus_thread") #{post.commentsCount} Comments
 
+                        //- ### Post title ###
                         h1.post-title(itemprop="name headline")
                             a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
 
+                    //- ### Post body ###
                     .post-body(itemprop="articleBody")!= post.content
 
+                    //- ### Post labels / tags ###
                     if post.labels && post.labels.length
                         ul.post-item-meta-list
                             li.post-item-meta-item
@@ -31,8 +38,9 @@ block content
                                     span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)
                                         strong #{label}
                                     | #{(idx === post.labels.length - 1) ? null : ', '}
-                        p
 
+                    include banners/post-footer
+                    //- ### Post footer ###
                     footer.post-footer
                         .post-author(itemprop="author", itemscope, itemtype="http://schema.org/Person")
                             
