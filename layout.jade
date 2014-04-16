@@ -67,9 +67,10 @@ html(lang="en")
                     | ga('create', "#{custom.ga.ua}", "#{custom.ga.domain}");
                     | ga('send', 'pageview');
                 if custom.disqus
+                    var disqus_shortname = '#{custom.disqus.shortname}';
                     | (function () {
                     |   var s = document.createElement('script'); s.async = true;
                     |   s.type = 'text/javascript';
-                    |   s.src = '//#{custom.disqus.shortname}.disqus.com/count.js';
+                    |   s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
                     |   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
                     | }());
