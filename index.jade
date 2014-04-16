@@ -2,7 +2,7 @@ mixin post(post)
     article.post-item(itemscope, itemtype="http://schema.org/BlogPosting", role="article", class=$postClass(post))
 
         header.post-item-header
-            h2.post-item-title(itemprop="name"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
+            h2.post-item-title(itemprop="name"): a(href=$url(post), itemprop="url", title=post.title)= post.title
 
         section.post-item-excerpt(itemprop="description")
             p !{post.teaser} &hellip;
@@ -23,7 +23,7 @@ mixin post(post)
                             span(itemprop="name")= post.author.name
 
                 //- Number of comments
-                li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread", data-pjax) #{post.commentsCount} Comments
+                li.post-item-meta-item: a(href="#{$url(post)}#disqus_thread") #{post.commentsCount} Comments
 
             if post.labels && post.labels.length
                 ul.post-item-meta-list
@@ -31,7 +31,7 @@ mixin post(post)
                         i.fa.fa-tags 
                         |  Labels: 
                         each label, idx in post.labels
-                            span: a(href=$labelUrl(label), data-pjax) 
+                            span: a(href=$labelUrl(label))
                                 strong(itemprop='keywords') #{label}
                             | #{(idx === post.labels.length - 1) ? null : ', '}
 
@@ -42,7 +42,7 @@ mixin info(iconClass, text, info)
         |  
         strong= info
         | . 
-        a(href=url, data-pjax) Show all posts
+        a(href=url) Show all posts
     hr
 
 extends layout
@@ -52,7 +52,7 @@ block content
         .cover-image(data-load-image=cover ? cover : undefined)
         .cover-container
             if logo
-                a.cover-logo(href=url, data-pjax): img(src=logo, alt="Blog Logo")
+                a.cover-logo(href=url): img(src=logo, alt="Blog Logo")
             h1.cover-title!= title
             p.cover-description!= description
 
@@ -77,12 +77,12 @@ block content
             if pagination && pagination.pages
                 nav.post-list-pagination(role="pagination")
                     if pagination.newer
-                        a.post-list-pagination-item.post-list-pagination-item-prev(href= $pageUrl(true), data-pjax) 
+                        a.post-list-pagination-item.post-list-pagination-item-prev(href= $pageUrl(true))
                             i.fa.fa-angle-double-left 
                             |  Newer
                     span.post-list-pagination-item.post-list-pagination-item-current Page #{pagination.page} of #{pagination.pages}
                     if pagination.older
-                        a.post-list-pagination-item.post-list-pagination-item-next(href= $pageUrl(false), data-pjax) 
+                        a.post-list-pagination-item.post-list-pagination-item-next(href= $pageUrl(false))
                             | Older 
                             i.fa.fa-angle-double-right
 

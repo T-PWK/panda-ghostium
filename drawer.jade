@@ -3,7 +3,7 @@ nav.drawer(tabindex="-1")
     .drawer-container
         //- .drawer-search(role="search")
         ul.drawer-list(role="navigation")
-            li.drawer-list-item: a(href="/", data-pjax)
+            li.drawer-list-item: a(href="/")
                 i.fa.fa-home
                 | Home
             li.drawer-list-item: a(href="#{url}/rss")
@@ -34,12 +34,17 @@ nav.drawer(tabindex="-1")
                     i.fa.fa-google-plus
                     | Google+
 
+            if custom.youtube
+                li.drawer-list-item: a(href=custom.youtube, target="_blank")
+                    i.fa.fa-youtube-square
+                    | YouTube
+
             //- Archives
             if archives && archives.length
                 li.drawer-list-divider
                 li.drawer-list-item.drawer-list-title Archive
                 each archive in archives
-                    li.drawer-list-item: a(href=$date(archive.date, '/YYYY/MM'), data-pjax)
+                    li.drawer-list-item: a(href=$date(archive.date, '/YYYY/MM'))
                         i.fa.fa-archive
                         = $date(archive.date, 'MMMM YYYY')
 

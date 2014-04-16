@@ -7,7 +7,7 @@ block content
                 
                 section.post-container
                     header.post-header
-                        h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
+                        h1.post-title(itemprop="name headline"): a(href=$url(post), itemprop="url", title=post.title)= post.title
 
                     .post-body(itemprop="articleBody")!= post.content
 

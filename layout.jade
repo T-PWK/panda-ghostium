@@ -58,26 +58,18 @@ html(lang="en")
         script(src="/assets/js/a8765325.foot-scripts.min.js")
 
         script(type="text/javascript")
-            //- Your Google Analitycs ID 
-            if custom.ga_ua 
-                | var ga_ua = "#{custom.ga_ua}";
-
-            //- Disqus shortname setup
-            if custom.disqus_shortname
-                | var disqus_shortname = "#{custom.disqus_shortname}";
-
             block bottomScript
-                if custom.ga_ua
-                    | (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-                    |   function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-                    |   t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-                    |   t.src='//www.google-analytics.com/analytics.js';
-                    |   z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-                    |   ga('create',ga_ua);ga('send','pageview');
-                if custom.disqus_shortname
+                if custom.ga
+                    | (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    | (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    | m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    | })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    | ga('create', "#{custom.ga.ua}", "#{custom.ga.domain}");
+                    | ga('send', 'pageview');
+                if custom.disqus
                     | (function () {
                     |   var s = document.createElement('script'); s.async = true;
                     |   s.type = 'text/javascript';
-                    |   s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+                    |   s.src = '//#{custom.disqus.shortname}.disqus.com/count.js';
                     |   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
                     | }());

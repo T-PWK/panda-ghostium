@@ -23,7 +23,7 @@ block content
 
                         //- ### Post title ###
                         h1.post-title(itemprop="name headline")
-                            a(href=$url(post), itemprop="url", data-pjax, title=post.title)= post.title
+                            a(href=$url(post), itemprop="url", title=post.title)= post.title
 
                     //- ### Post body ###
                     .post-body(itemprop="articleBody")!= post.content
@@ -35,7 +35,7 @@ block content
                                 i.fa.fa-tags
                                 |  Labels: 
                                 each label, idx in post.labels
-                                    span(itemprop='keywords'): a(href=$labelUrl(label), data-pjax)
+                                    span(itemprop='keywords'): a(href=$labelUrl(label))
                                         strong #{label}
                                     | #{(idx === post.labels.length - 1) ? null : ', '}
 
@@ -72,12 +72,12 @@ block content
             include footer
 
 block prepend bottomScript
-    if custom.disqus_shortname
+    if custom.disqus && custom.disqus.shortname
         | if(typeof DISQUS !== 'object') {
         |   (function () {
         |   var s = document.createElement('script'); s.async = true;
         |   s.type = 'text/javascript';
-        |   s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        |   s.src = '//#{custom.disqus.shortname}.disqus.com/embed.js';
         |   (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         |   }());
         | }
