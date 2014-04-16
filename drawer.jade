@@ -10,11 +10,12 @@ nav.drawer(tabindex="-1")
                 i.fa.fa-rss
                 | Subscribe to Feed
 
-            li.drawer-list-divider
-            
+            if custom.twitter || custom.github || custom.googleplus || custom.stackoverflow || custom.youtube
+                li.drawer-list-divider
+                li.drawer-list-item.drawer-list-title Follow me
+
             //- Follow me section
             if custom.twitter
-                li.drawer-list-item.drawer-list-title Follow me
                 li.drawer-list-item: a(href=custom.twitter, target="_blank")
                     i.fa.fa-twitter
                     | Twitter
@@ -43,6 +44,7 @@ nav.drawer(tabindex="-1")
             if archives && archives.length
                 li.drawer-list-divider
                 li.drawer-list-item.drawer-list-title Archive
+
                 each archive in archives
                     li.drawer-list-item: a(href=$date(archive.date, '/YYYY/MM'))
                         i.fa.fa-archive
