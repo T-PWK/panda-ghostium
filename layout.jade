@@ -65,10 +65,11 @@ html(lang="en")
                     | m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
                     | })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
                     | ga('create', "#{custom.ga.ua}", "#{custom.ga.domain}");
+                    | ga('require', 'displayfeatures');
                     | ga('send', 'pageview');
                     | $('#drawer-button').on('click', function(){ ga('send', 'event', 'button', 'click', 'Drawer'); });
                 if custom.disqus
-                    var disqus_shortname = '#{custom.disqus.shortname}';
+                    | var disqus_shortname = '#{custom.disqus.shortname}';
                     | (function () {
                     |   var s = document.createElement('script'); s.async = true;
                     |   s.type = 'text/javascript';
