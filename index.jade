@@ -14,6 +14,7 @@ mixin post(post)
                 li.post-item-meta-item
                     | Posted 
                     time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
+                    meta(content=$date(post.updatedAt), itemprop="dateModified")
                     |  by  
                     span(itemprop="author", itemscope, itemtype="http://schema.org/Person")
                         if post.author.website

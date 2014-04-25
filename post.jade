@@ -17,6 +17,7 @@ block content
                             li.post-meta-item
                                 | Published 
                                 time(datetime=$date(post), itemprop="datePublished")= $date(post, 'timeago')
+                                meta(content=$date(post.updatedAt), itemprop="dateModified")
 
                             //- ### Post comments ###
                             li.post-meta-item: a(href="#disqus_thread") #{post.commentsCount} Comments
